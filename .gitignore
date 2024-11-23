@@ -7,7 +7,7 @@ target/
 
 
 # Exception : ne pas ignorer application.properties
-!src/main/resources/application.properties
+src/main/resources/application.properties
 
 
 
