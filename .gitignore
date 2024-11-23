@@ -4,7 +4,11 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-src/main/resources/application.properties
+
+
+# Exception : ne pas ignorer application.properties
+!src/main/resources/application.properties
+
 
 
 ### STS ###
