@@ -19,7 +19,7 @@ import java.io.IOException;
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private final JwtTokenProvider tokenProvider;
-    private final String frontendUrl = "http://localhost:3000"; // À configurer selon votre environnement
+    private final String frontendUrl = "http://localhost:5173"; // À configurer selon votre environnement
 
     @Override
     public void onAuthenticationSuccess(

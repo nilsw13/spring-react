@@ -27,5 +27,8 @@ public class User extends BaseEntity {
      @Column(name = "Google_id")
     private String googleId;
 
+     @Column(name = "email_verified")
+    private boolean emailVerified;
+
 
 }
