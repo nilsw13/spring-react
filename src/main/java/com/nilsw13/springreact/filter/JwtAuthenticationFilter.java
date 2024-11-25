@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -44,18 +45,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
                 String email = tokenProvider.getUserEmailFromToken(jwt);
+                String tenantId = tokenProvider.getTenantIdFromToken(jwt);
+
+                // Définit le tenant pour la requête
+                TenantContext.setTenantId(tenantId);
 
                 User user = userRepository.findByEmail(email)
                         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
-                // Créer les attributs OAuth2 à partir des données utilisateur
+                // Créer les attributs
                 Map<String, Object> attributes = new HashMap<>();
                 attributes.put("sub", user.getGoogleId());
                 attributes.put("name", user.getName());
                 attributes.put("email", user.getEmail());
                 attributes.put("picture", user.getPicture());
+                attributes.put("email_verified", true);
+                attributes.put("tenant_id", user.getTenantId());
 
-
+                // Créer le CustomUserPrincipal avec les attributs
                 CustomUserPrincipal userPrincipal = CustomUserPrincipal.create(user, attributes);
 
                 UsernamePasswordAuthenticationToken authentication =
@@ -72,19 +78,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
 
-    /**
-     * Extrait le token JWT du header Authorization
-     * Le format attendu est "Bearer <token>"
-     */
+
+
+
+
+
+
+
     private String getJwtFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
-
-        // Vérifie si le header existe et commence par "Bearer "
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            // Retourne le token sans le préfixe "Bearer "
             return bearerToken.substring(7);
         }
-
         return null;
     }
 }

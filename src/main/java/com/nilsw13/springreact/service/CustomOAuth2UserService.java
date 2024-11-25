@@ -13,9 +13,12 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Slf4j
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     private final UserRepository userRepository;
@@ -26,42 +29,46 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         OAuth2User oauth2User = super.loadUser(userRequest);
 
         try {
-            return processOAuth2User(userRequest, oauth2User);
+            String email = oauth2User.getAttribute("email");
+            String name = oauth2User.getAttribute("name");
+            String picture = oauth2User.getAttribute("picture");
+            String googleId = oauth2User.getAttribute("sub");
+
+            // Recherche de l'utilisateur existant
+            Optional<User> userOptional = userRepository.findByEmail(email);
+
+            User user;
+            if (userOptional.isPresent()) {
+                // Utilisateur existant
+                user = userOptional.get();
+                // Met à jour le TenantContext avec le tenant existant
+                TenantContext.setTenantId(user.getTenantId());
+                // Met à jour les infos utilisateur
+                user.setName(name);
+                user.setPicture(picture);
+            } else {
+                // Nouvel utilisateur
+                String newTenantId = UUID.randomUUID().toString();
+                // Définit le nouveau tenant
+                TenantContext.setTenantId(newTenantId);
+
+                user = new User();
+                user.setEmail(email);
+                user.setName(name);
+                user.setPicture(picture);
+                user.setGoogleId(googleId);
+                user.setTenantId(newTenantId);
+                user.setEmailVerified(true);
+            }
+
+            user = userRepository.save(user);
+
+            // Crée le principal avec le tenant ID
+            return CustomUserPrincipal.create(user, oauth2User.getAttributes());
+
         } catch (Exception ex) {
-            log.error("Error processing OAuth2 user", ex);
-            throw new InternalAuthenticationServiceException(ex.getMessage(), ex);
+            log.error("Error during OAuth2 authentication", ex);
+            throw new RuntimeException("Failed to process OAuth2 user", ex);
         }
-    }
-
-    private OAuth2User processOAuth2User(OAuth2UserRequest userRequest, OAuth2User oauth2User) {
-        // Extraction des informations de l'utilisateur Google
-        String email = oauth2User.getAttribute("email");
-        String name = oauth2User.getAttribute("name");
-        String picture = oauth2User.getAttribute("picture");
-        String googleId = oauth2User.getAttribute("sub");
-
-        // Recherche de l'utilisateur dans la base de données
-        User user = userRepository.findByEmail(email)
-                .map(existingUser -> updateExistingUser(existingUser, name, picture))
-                .orElseGet(() -> registerNewUser(email, name, picture, googleId));
-
-        return CustomUserPrincipal.create(user, oauth2User.getAttributes());
-    }
-
-    private User updateExistingUser(User user, String name, String picture) {
-        user.setName(name);
-        user.setPicture(picture);
-        return userRepository.save(user);
-    }
-
-    private User registerNewUser(String email, String name, String picture, String googleId) {
-        User user = new User();
-        user.setEmail(email);
-        user.setName(name);
-        user.setPicture(picture);
-        user.setGoogleId(googleId);
-        // Par défaut, utiliser le tenant du contexte ou un tenant par défaut
-        user.setTenantId(TenantContext.getTenantID());
-        return userRepository.save(user);
     }
 }

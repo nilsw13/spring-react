@@ -48,9 +48,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // URLs publiques
                         .requestMatchers(
-                                "/api/auth/**",
-                                "/api/oauth2/**",
-                                "/api/public/**"
+                                "/test",
+                                "/auth/**",
+                                "/oauth2/**",
+                                "/public/**"
                         ).permitAll()
                         // Toutes les autres requêtes nécessitent une authentification
                         .anyRequest().authenticated()
@@ -64,10 +65,10 @@ public class SecurityConfig {
                 // Configuration OAuth2
                 .oauth2Login(oauth2 -> oauth2
                         .authorizationEndpoint(authEndpoint -> authEndpoint
-                                .baseUri("/api/oauth2/authorize")
+                                .baseUri("/oauth2/authorize")
                         )
                         .redirectionEndpoint(redirectEndpoint -> redirectEndpoint
-                                .baseUri("/api/oauth2/callback/*")
+                                .baseUri("/login/oauth2/code/*")
                         )
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(customOAuth2UserService)
@@ -85,10 +86,11 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173")); // Remplacez par l'URL de votre frontend
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
-        configuration.setAllowCredentials(true); // Si vous avez besoin d'envoyer des cookies
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowCredentials(true);
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

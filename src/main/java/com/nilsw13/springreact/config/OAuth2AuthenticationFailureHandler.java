@@ -18,7 +18,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class OAuth2AuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
-    @Value("${app.oauth2.redirect-uri}")
+    @Value("app.oauth2.redirect-uri=http://localhost:8080/oauth2/redirect")
     private String frontendUrl;
 
     @Override

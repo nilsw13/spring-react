@@ -1,9 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../../(context)/AuthContext';
 
 
 const Login = () => {
-  const { loginWithGoogle } = useAuth();
+  const [backendStatus, setBackendStatus] = useState<string>('');
+  
+  const [error, setError] = useState<string>('');
+
+  useEffect(() => {
+    // Test connexion backend
+    console.log('Testing backend connection...');
+    fetch('http://localhost:8080/api/test')
+      .then(response => {
+        console.log('Response status:', response.status);
+        return response.text();
+      })
+      .then(data => {
+        console.log('Backend response:', data);
+        setBackendStatus('Connected: ' + data);
+      })
+      .catch(err => {
+        console.error('Backend connection error:', err);
+        setError(err.message);
+      });
+  }, []);
+
+  const handleGoogleLogin = () => {
+    window.location.href = 'http://localhost:8080/api/oauth2/authorize/google';
+  };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -15,7 +40,7 @@ const Login = () => {
         </div>
         
         <button
-          onClick={loginWithGoogle}
+          onClick={handleGoogleLogin}
           className="w-full flex justify-center items-center px-4 py-2 border border-transparent 
                      rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 
                      hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 

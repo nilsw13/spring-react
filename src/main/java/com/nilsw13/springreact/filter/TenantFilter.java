@@ -80,7 +80,8 @@ public class TenantFilter extends OncePerRequestFilter {
         return requestUri.contains("/public") ||
                 requestUri.contains("/auth") ||
                 requestUri.contains("/actuator") ||
-                requestUri.contains("/error");
+                requestUri.contains("/error") ||
+                requestUri.contains("/test");
 
     }
 

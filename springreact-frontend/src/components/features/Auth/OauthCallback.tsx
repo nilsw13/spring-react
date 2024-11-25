@@ -1,17 +1,37 @@
 import React, { useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../(context)/AuthContext';
 
-const OAuth2Callback = () => {
+const OAuthCallback = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const { login } = useAuth();
 
   useEffect(() => {
     const token = searchParams.get('token');
+    const error = searchParams.get('error');
+
     if (token) {
-      login(token);
+      try {
+        login(token);
+        navigate('/dashboard');
+      } catch (err) {
+        console.error('Login error:', err);
+        navigate('/login', { 
+          state: { error: 'Authentication failed' }
+        });
+      }
+    } else if (error) {
+      console.error('OAuth error:', error);
+      navigate('/login', { 
+        state: { error }
+      });
+    } else {
+      navigate('/login', { 
+        state: { error: 'No token received' }
+      });
     }
-  }, [searchParams, login]);
+  }, [searchParams, login, navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -20,4 +40,4 @@ const OAuth2Callback = () => {
   );
 };
 
-export default OAuth2Callback;
+export default OAuthCallback;
