@@ -6,31 +6,27 @@ import com.nilsw13.springreact.model.CustomUserPrincipal;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SecurityException;
-
-import java.nio.charset.StandardCharsets;
-import java.util.Date;
-import javax.crypto.SecretKey;
-
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
-import java.nio.charset.StandardCharsets;
 import java.util.Date;
-
 
 @Slf4j
 @Component
 public class JwtTokenProvider {
 
-    @Value("${jwt.secret}")
-    private String jwtSecret;
+    private final SecretKey key;
+    private final int jwtExpirationInMs;
 
-    @Value("${jwt.expiration}")
-    private int jwtExpirationInMs;
+    public JwtTokenProvider(@Value("${jwt.expiration}") int jwtExpirationInMs) {
+        // Génération d'une clé sécurisée pour HS512
+        this.key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+        this.jwtExpirationInMs = jwtExpirationInMs;
+        log.info("Initialized JWT Provider with secure HS512 key");
+    }
 
     public String generateToken(Authentication authentication) {
         CustomUserPrincipal userPrincipal = (CustomUserPrincipal) authentication.getPrincipal();
@@ -44,13 +40,14 @@ public class JwtTokenProvider {
                 .claim("user_id", userPrincipal.getId())
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .signWith(key)
                 .compact();
     }
 
     public String getUserEmailFromToken(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(jwtSecret)
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
 
@@ -58,8 +55,9 @@ public class JwtTokenProvider {
     }
 
     public String getTenantIdFromToken(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(jwtSecret)
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
 
@@ -68,25 +66,27 @@ public class JwtTokenProvider {
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+            Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token);
             return true;
-        } catch (SignatureException ex) {
-            log.error("Invalid JWT signature");
-        } catch (MalformedJwtException ex) {
-            log.error("Invalid JWT token");
+        } catch (SecurityException | MalformedJwtException ex) {
+            log.error("Invalid JWT signature", ex);
         } catch (ExpiredJwtException ex) {
-            log.error("Expired JWT token");
+            log.error("Expired JWT token", ex);
         } catch (UnsupportedJwtException ex) {
-            log.error("Unsupported JWT token");
+            log.error("Unsupported JWT token", ex);
         } catch (IllegalArgumentException ex) {
-            log.error("JWT claims string is empty");
+            log.error("JWT claims string is empty", ex);
         }
         return false;
     }
 
     public Long getUserIdFromToken(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(jwtSecret)
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
 

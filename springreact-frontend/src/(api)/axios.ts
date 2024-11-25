@@ -5,13 +5,19 @@ import axios from 'axios';
 const api = axios.create({
     baseURL: import.meta.env.VITE_APP_API_URL || 'http://localhost:8080/api',
     headers: {
-        'Content-Type': 'application/json'
-    }
-});
-
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true  // Important pour les cookies CORS
+  });
 // Intercepteur pour les requêtes
 api.interceptors.request.use(
     (config) => {
+          // Log de la requête
+    console.log('Request:', {
+        url: config.url,
+        method: config.method,
+        headers: config.headers
+      });
         // Ajout du token JWT dans le header si disponible
         const token = localStorage.getItem('token');
         if (token) {
@@ -28,6 +34,7 @@ api.interceptors.request.use(
 api.interceptors.response.use(
     (response) => response,
     async (error) => {
+        
         // Gérer les erreurs 401 (non authentifié)
         if (error.response?.status === 401) {
             localStorage.removeItem('token');
