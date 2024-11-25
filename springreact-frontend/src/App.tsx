@@ -5,14 +5,15 @@ import ProtectedRoute from "./components/features/Auth/ProtectedRoute";
 import Login from "./components/features/Auth/LoginForm";
 import OauthCallback from "./components/features/Auth/OauthCallback";
 import Dashboard from "./pages/Dashboard";
+import Home from "./components/features/Home";
 
 const App = () => {
   return (
   
     <BrowserRouter>
       <AuthProvider>
-       <h1>HELLO WORLD</h1>
-        <Routes>
+      
+        <Routes >
           <Route path="/login" element={<Login />} />
           <Route path="/oauth2/redirect" element={<OauthCallback />} />
           <Route
@@ -23,8 +24,9 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<Home />} />
         </Routes>
+       
       </AuthProvider>
     </BrowserRouter>
   );

@@ -3,8 +3,9 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../../(context)/AuthContext';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading, user } = useAuth();
 
+  // Affichage du loader pendant la vérification
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -13,11 +14,21 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
     );
   }
 
-  if (!isAuthenticated) {
+  // Vérification de l'authentification ET du tenant
+  if (!isAuthenticated || !user?.tenantId) {
+    console.warn('Access denied:', { 
+      isAuthenticated, 
+      hasTenant: !!user?.tenantId 
+    });
     return <Navigate to="/login" replace />;
   }
 
-  return <>{children}</>;
+  // Si tout est OK, on affiche le contenu protégé
+  return (
+    <div className="min-h-screen bg-gray-100">
+      {children}
+    </div>
+  );
 };
 
 export default ProtectedRoute;

@@ -26,7 +26,7 @@ const Login = () => {
   }, []);
 
   const handleGoogleLogin = () => {
-    window.location.href = `${import.meta.env.VITE_APP_API_URL}/oauth2/authorize/google`;
+    window.location.href = 'http://localhost:8080/api/oauth2/authorize/google';
   };
 
 
