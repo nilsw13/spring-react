@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Ce projet est une application web multi-tenant développée avec **Spring Boot** pour le backend et **React** avec **Vite** pour le frontend. L'application permet aux utilisateurs de se connecter via OAuth2 (Google) et gère les utilisateurs et leurs données de manière sécurisée.
+Ce projet est un starter kit d'application web type Saas multi-tenant développée avec **Spring Boot** pour le backend et **React** avec **Vite** pour le frontend. L'application permet aux utilisateurs de se connecter via OAuth2 (Google) et gère les utilisateurs et leurs données de manière sécurisée.
 
 ## Technologies Utilisées
 
