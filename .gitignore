@@ -6,8 +6,8 @@ target/
 
 
 
-# Exception : ne pas ignorer application.properties
-src/main/resources/application.properties
+# Supprimer '#' de la ligne ci dessous pour ignorer application.properties
+# src/main/resources/application.properties
 
 
 
