@@ -1,106 +1,85 @@
-🚀 Spring-Boot React SaaS Starter Kit
+🚀 Spring Boot React SaaS Starter Kit
 
-🙋 THIS IS A STUDENT PROJECT THIS MIGHT NOT BE THE BEST WAY TO DO THIS, BUT IT WORKS AND IM HERE TO LEARN SO FEEL FREE TO GIVE ME FEEDBACK ON HOW TO IMPROVE THIS PROJECT.
-
+💡 Note: This is a student project. This might not be the best way to do this, but it works and is here to learn so feel free to give me feedback on how to improve this project.
 
 A production-ready starter kit for building scalable SaaS applications with Spring Boot and React. This boilerplate provides a solid foundation with built-in multi-tenancy support, modern frontend architecture, and enterprise-grade security features.
-
-
 ✨ Key Features
+Our starter kit comes with several powerful features built-in:
 
-🏢 Built-in Multi-tenancy: Secure data isolation between tenants
-🔒 Enterprise Security: JWT authentication, role-based access control
-⚡ Modern Tech Stack: Spring Boot 3.x + React 18 with Vite
-🎨 Polished UI: Clean design with Tailwind CSS
-🔍 Type Safety: Full TypeScript support on the frontend
+🏢 Built-in Multi-tenancy: Secure data isolation between tenants ensures complete separation of data and resources for each client.
+🔐 Enterprise Security:
 
-System Requirements
+JWT authentication
+Role-based access control
+Advanced security measures
+OAuth2 support
+
+
+💻 Modern Tech Stack:
+
+Spring Boot 3.x
+React 18 with Vite
+TypeScript support
+Tailwind CSS
+
+
+
+📋 System Requirements
 To run this application successfully, your system should meet the following requirements:
 
-Java: JDK 23 or higher
-Node.js: v16.x or higher (v18+ recommended)
-PostgreSQL: Version 13 or higher
-Maven: Version 3.6 or higher
+☕ Java: JDK 23 or higher
+🟩 Node.js: v16.x or higher (v18+ recommended)
+🐘 PostgreSQL: Version 13 or higher
+📦 Maven: Version 3.8 or higher
 
 🛠️ Technology Stack
-Backend Technologies
+🔙 Backend Technologies
 Our backend is built using Spring Boot 3.4.0 and provides a robust foundation with the following key components:
-Core Dependencies:
 
-Spring Boot Starter Web: Foundation for building web applications
-Spring Boot Data JPA: Simplified data access layer with Hibernate
-Spring Security: Advanced authentication and authorization
-OAuth2 Client: Support for OAuth2 authentication flows
+🌱 Spring Boot Starter Web: Foundation for building web applications
+
+Simplified data access layer with Hibernate
+Spring Security
+Advanced authentication and authorization
+OAuth2 client support
+Support for OAuth2 authentication flows
 PostgreSQL: Production-grade relational database
-Lombok: Reduces boilerplate code through annotations
-JWT (jsonwebtoken): Secure token-based authentication with JJWT 0.11.5
 
-Development Tools:
 
-Spring Boot DevTools: Enhanced development experience
+🔧 Lombok: Reduces boilerplate code through annotations
+
+JWT (jsonwebtoken)
+Secure token-based authentication with JWT 0.11.5
+
+
+
+🛠️ Development Tools
+
+🔄 Spring Boot DevTools:
+
+Enhanced development experience
 Java Version: JDK 23 compatibility
 Spring Boot Test: Comprehensive testing framework
 
-Frontend Technologies
-Our frontend utilizes modern React with TypeScript and Vite, incorporating these carefully selected dependencies:
-Core Framework:
 
-React: v18.3.1 with React DOM
-TypeScript: v5.6.2 for type safety
-Vite: v5.4.10 for lightning-fast builds
+📁 Project Structure:
 
-UI & Styling:
+Clear organization
+Modular design
+Scalable architecture
 
-Tailwind CSS: v3.4.15 for utility-first styling
-Lucide React: v0.461.0 for beautiful icons
-React Icons: v5.3.0 for additional icon options
-Class Variance Authority: For reusable component styles
-Tailwind Merge & Animate: Enhanced styling capabilities
 
-Routing & HTTP:
 
-React Router DOM: v7.0.1 for client-side routing
-Axios: v1.7.7 for HTTP requests
+🎨 Frontend Technologies
 
-Development Tools:
-
-ESLint: v9.13.0 with React plugins
-TypeScript ESLint: v8.11.0
-Autoprefixer: v10.4.20
-PostCSS: v8.4.49
-
-🏗️ Project Setup Options
-This starter kit offers two flexible setup options to match your development needs:
-Monolithic Setup (Default)
-The project comes with a monolithic structure where both frontend and backend coexist in the same repository, making it easier to manage during initial development:
-
-```text
-  your-project/
-├── src/
-│   ├── main/
-│   │   ├── java/           # Backend code
-│   │   └── resources/      # Backend resources
-│   └── frontend/          # Frontend React application
-```
-
-Split Setup
-You can also split the frontend and backend into separate repositories while maintaining the same configuration:
-
-```text
-  backend-project/
-└── src/
-    └── main/
-        ├── java/
-        └── resources/
-
-frontend-project/
-└── src/
-    └── frontend/
-```
-
+⚛️ React + Vite: Modern frontend development environment
+📝 TypeScript: Type-safe development
+🎯 Tailwind CSS: Utility-first CSS framework
+🔄 React Query: Data fetching and caching
+🛣️ React Router: Client-side routing
+📋 React Hook Form: Form handling and validation
 
 🚀 Getting Started
-
 Prerequisites
 Before you begin, ensure you have installed:
 
@@ -133,7 +112,7 @@ npm install
 
     - Create a new PostgreSQL database
     - Update the database configuration in application.properties
-    
+
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/your_db
 spring.datasource.username=your_username
@@ -141,7 +120,7 @@ spring.datasource.password=your_password
 ```
 
 4 / Run the Application
-    
+
 For the backend:
 ```bash
 cd backend
@@ -160,11 +139,34 @@ Your application will be available at:
 
 Backend API: http://localhost:8080
 Frontend: http://localhost:5173
-
-
 📁 Project Structure
-    
-Frontend Structure 
+
+```text
+  your-project/
+├── src/
+│   ├── main/
+│   │   ├── java/           # Backend code
+│   │   └── resources/      # Backend resources
+│   └── frontend/          # Frontend React application
+```
+
+Split Setup
+You can also split the frontend and backend into separate repositories while maintaining the same configuration:
+
+```text
+  backend-project/
+└── src/
+    └── main/
+        ├── java/
+        └── resources/
+
+frontend-project/
+└── src/
+    └── frontend/
+```
+
+
+Frontend Structure
 ```text
 ├── public/                 # Public assets
 │   └── vite.svg           # Vite logo
@@ -219,8 +221,10 @@ src/
 ├── mvnw.cmd                     # Maven wrapper for Windows
 ├── pom.xml                      # Maven dependencies
 └── README.md                    # Backend documentation
-```
 
+
+
+🤝 Contributing
 🤝 Contributing to [Spring-Boot React SaaS Starter Kit]
 
 
@@ -263,7 +267,6 @@ Notes (possibly including why you think this might be happening, or stuff you tr
 
 
 
-
 🚧 Features in Development
 We are actively working on expanding the capabilities of this starter kit. Here are some exciting features currently in development:
 Payment Integration
@@ -283,14 +286,15 @@ Multi-tenant file isolation
 Automatic cleanup policies
 
 These features are being developed with the same attention to security, scalability, and multi-tenant isolation that characterizes our current codebase. Stay tuned for updates!
+
 📝 License
 This project is licensed under the MIT License - see the LICENSE file for details.
-🙋 Support
-If you have any questions or need help, please:
 
+
+
+🌟 Support
+If you like this project, please give it a star ⭐️ and share it with your friends!
+📫 Contact
 Contact me by email
-
-⭐ Show your support
-Give a ⭐️ if this project helped you!
 
 Made with ❤️ by [Nilsw13]
