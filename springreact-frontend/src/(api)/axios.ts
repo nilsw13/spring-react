@@ -1,24 +1,24 @@
 import axios from 'axios';
 
 
-// Création d'une instance axios avec une configuration de base
+// Create an axios instance with a custom config
 const api = axios.create({
-    baseURL: import.meta.env.VITE_APP_API_URL || 'http://localhost:8080/api',
+    baseURL: import.meta.env.BASE_URL  || 'http://localhost:8080/api', // change this in production
     headers: {
       'Content-Type': 'application/json'
     },
-    withCredentials: true  // Important pour les cookies CORS
+    withCredentials: true  // ! CORS cookies
   });
 // Intercepteur pour les requêtes
 api.interceptors.request.use(
     (config) => {
-          // Log de la requête
+
     console.log('Request:', {
         url: config.url,
         method: config.method,
         headers: config.headers
       });
-        // Ajout du token JWT dans le header si disponible
+        // Add JWT token to headers if available
         const token = localStorage.getItem('token');
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
@@ -30,20 +30,20 @@ api.interceptors.request.use(
     }
 );
 
-// Intercepteur pour les réponses
+// Response interceptor
 api.interceptors.response.use(
     (response) => response,
     async (error) => {
         
-        // Gérer les erreurs 401 (non authentifié)
+        // handle 401 errors (No auth)
         if (error.response?.status === 401) {
             localStorage.removeItem('token');
             window.location.href = '/login';
         }
         
-        // Gérer les erreurs 403 (non autorisé)
+        // handle 403 errors (No authorization)
         if (error.response?.status === 403) {
-            // Rediriger vers une page d'erreur ou afficher un message
+            // Redirect to forbidden page or show a message
             console.error('Access forbidden');
         }
 

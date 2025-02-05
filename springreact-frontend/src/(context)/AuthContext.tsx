@@ -49,17 +49,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = async (token: string) => {
     try {
-      // Stocker le token
+      // Save token in local storage
       localStorage.setItem('token', token);
       
-      // Configurer axios
+      // Config axios with token
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       
-      // Charger les infos utilisateur
+      // Load user data
       const response = await api.get('/auth/me');
       setUser(response.data);
       
-      // Rediriger
+      // Redirect to dashboard for example but can be any route
       navigate('/dashboard');
     } catch (error) {
       console.error('Login error:', error);
@@ -79,14 +79,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     window.location.href = `${import.meta.env.VITE_APP_API_URL}/oauth2/authorize/google`;
   };
 
-  const value = {
+  /*const value = {
     user,
     isAuthenticated: !!user,
     isLoading,
     login,
     logout,
     loginWithGoogle,
-  };
+  };*/
 
   return (
     <AuthContext.Provider value={{ user, isAuthenticated: !!user, login, logout, loginWithGoogle, isLoading }}>

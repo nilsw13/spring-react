@@ -8,7 +8,7 @@ const Login = () => {
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
-    // Test connexion backend
+    // Test Backend connection
     console.log('Testing backend connection...');
     fetch('http://localhost:8080/api/test')
       .then(response => {

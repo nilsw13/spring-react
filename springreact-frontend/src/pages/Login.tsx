@@ -7,7 +7,7 @@ import { FcGoogle } from "react-icons/fc";
 const Login = () => {
   const { isAuthenticated, loginWithGoogle } = useAuth();
 
-  // Si déjà authentifié, rediriger vers le dashboard
+  // If user is authenticated, redirect to dashboard
   if (isAuthenticated) {
     return <Navigate to="/dashboard" replace />;
   }
