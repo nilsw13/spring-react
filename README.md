@@ -1,4 +1,8 @@
-🚀 Modern Multi-tenant SaaS Starter Kit
+🚀 Spring-Boot React SaaS Starter Kit
+
+🙋 THIS IS A STUDENT PROJECT THIS MIGHT NOT BE THE BEST WAY TO DO THIS, BUT IT WORKS AND IM HERE TO LEARN SO FEEL FREE TO GIVE ME FEEDBACK ON HOW TO IMPROVE THIS PROJECT.
+
+
 A production-ready starter kit for building scalable SaaS applications with Spring Boot and React. This boilerplate provides a solid foundation with built-in multi-tenancy support, modern frontend architecture, and enterprise-grade security features.
 
 
@@ -217,20 +221,45 @@ src/
 └── README.md                    # Backend documentation
 ```
 
-🤝 Contributing
-We welcome contributions!
+🤝 Contributing to [Spring-Boot React SaaS Starter Kit]
 
-Step 1: Fork the Project
-Click the "Fork" button at the top right of this repository to create your own copy.
 
-Step 2: Create Your Feature Branch
-```bash
-git checkout -b feature/AmazingFeature
-```
+We love your input! We want to make contributing to our project as easy and transparent as possible, whether it's:
 
-Step 3: Submit Your Changes
-Create a Pull Request from your feature branch to our master branch.
-That's it! We'll review your contribution and get back to you. Thank you for helping make this project better! 🚀
+Reporting a bug
+Discussing the current state of the code
+Submitting a fix
+Proposing new features
+Becoming a maintainer
+
+Development Process
+We use GitHub to host code, to track issues and feature requests, as well as accept pull requests.
+
+Fork the repo and create your branch from main.
+If you've added code that should be tested, add tests.
+If you've changed APIs, update the documentation.
+Ensure the test suite passes.
+Make sure your code follows our coding standards.
+Issue that pull request!
+
+Pull Request Process
+
+Update the README.md with details of changes if needed.
+You may merge the Pull Request once you have the sign-off of at least one other developer.
+
+Write bug reports with detail, background, and sample code
+Great Bug Reports tend to have:
+
+A quick summary and/or background
+Steps to reproduce
+
+Be specific!
+Give sample code if you can.
+
+
+What you expected would happen
+What actually happens
+Notes (possibly including why you think this might be happening, or stuff you tried that didn't work)
 
 
 
