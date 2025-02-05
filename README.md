@@ -62,12 +62,6 @@ Our backend is built using Spring Boot 3.4.0 and provides a robust foundation wi
     Spring Boot Test: Comprehensive testing framework
 
 
-## 📁 Project Structure:
-
-    Clear organization
-    Modular design
-    Scalable architecture
-
 
 
 ## 🎨 Frontend Technologies
@@ -75,9 +69,7 @@ Our backend is built using Spring Boot 3.4.0 and provides a robust foundation wi
     ⚛️ React + Vite: Modern frontend development environment
     📝 TypeScript: Type-safe development
     🎯 Tailwind CSS: Utility-first CSS framework
-    🔄 React Query: Data fetching and caching
-    🛣️ React Router: Client-side routing
-    📋 React Hook Form: Form handling and validation
+    🔄 Axios: Promise-based HTTP client
 
 ## 🚀 Getting Started
 Prerequisites
@@ -139,89 +131,6 @@ Your application will be available at:
 
 Backend API: http://localhost:8080
 Frontend: http://localhost:5173
-📁 Project Structure
-
-```text
-  your-project/
-├── src/
-│   ├── main/
-│   │   ├── java/           # Backend code
-│   │   └── resources/      # Backend resources
-│   └── frontend/          # Frontend React application
-```
-
-Split Setup
-You can also split the frontend and backend into separate repositories while maintaining the same configuration:
-
-```text
-  backend-project/
-└── src/
-    └── main/
-        ├── java/
-        └── resources/
-
-frontend-project/
-└── src/
-    └── frontend/
-```
-
-
-Frontend Structure
-```text
-├── public/                 # Public assets
-│   └── vite.svg           # Vite logo
-├── src/
-│   ├── api/               # API integration layer
-│   ├── assets/            # Static assets like images
-│   ├── components/        # Reusable React components
-│   ├── context/           # React Context providers
-│   ├── lib/               # Utility libraries
-│   ├── pages/             # Page components
-│   ├── App.css            # Main application styles
-│   ├── App.tsx            # Root React component
-│   ├── index.css          # Global styles
-│   ├── main.tsx          # Application entry point
-│   └── vite-env.d.ts     # Vite environment types
-├── .env                   # Environment variables
-├── .gitignore            # Git ignore rules
-├── components.json        # UI components configuration
-├── eslint.config.js      # ESLint configuration
-├── index.html            # HTML entry point
-├── package.json          # Node.js dependencies and scripts
-├── package-lock.json     # Locked dependencies
-```
-
-
-Backend Structure
-```text
-src/
-├── main/
-│   ├── java/
-│   │   └── com.yourpackage.springreact/
-│   │       ├── config/            # Spring configuration classes
-│   │       ├── controller/        # REST API controllers
-│   │       ├── dto/               # Data transfer objects
-│   │       ├── filter/            # Security and tenant filters
-│   │       ├── model/             # Domain entities
-│   │       ├── repository/        # Data access layer
-│   │       ├── service/           # Business logic services
-│   │       ├── tenant/            # Multi-tenancy implementation
-│   │       ├── util/              # Utility classes
-│   │       └── SpringReactApplication.java  # Main application class
-│   └── resources/
-│       ├── static/                # Static resources
-│       ├── templates/             # Template files
-│       └── application.properties # Application configuration
-├── test/                         # Test directory
-├── target/                       # Compiled output
-├── .gitattributes               # Git attributes
-├── .gitignore                   # Git ignore rules
-├── HELP.md                      # Spring Boot help
-├── mvnw                         # Maven wrapper script
-├── mvnw.cmd                     # Maven wrapper for Windows
-├── pom.xml                      # Maven dependencies
-└── README.md                    # Backend documentation
-```
 
 
 
@@ -284,6 +193,18 @@ Payment Integration
         Secure file access control
         Multi-tenant file isolation
         Automatic cleanup policies
+
+    📧 Email Service
+        Transactional email support
+        Email templates
+        Email scheduling
+        Email tracking and analytics
+
+    🎨 Shadcn UI
+        A beautiful, modern UI kit for React
+        Tailwind CSS integration
+        Customizable components
+        Dark mode support
 
 These features are being developed with the same attention to security, scalability, and multi-tenant isolation that characterizes our current codebase. Stay tuned for updates!
 
