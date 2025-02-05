@@ -30,8 +30,8 @@ public class TenantAspect {
 
 
     /**
-     * Point de coupe qui s'applique à toutes les méthodes des repositories JPA.
-     * @param joinPoint Le point de jonction de l'aspect
+     *  cross point for all jpa respositories jpa     Point de coupe qui s'applique à toutes les méthodes des repositories JPA.
+     * @param joinPoint Aspect join point
      */
 
 

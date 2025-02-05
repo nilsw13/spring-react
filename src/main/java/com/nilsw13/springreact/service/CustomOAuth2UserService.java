@@ -34,22 +34,22 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             String picture = oauth2User.getAttribute("picture");
             String googleId = oauth2User.getAttribute("sub");
 
-            // Recherche de l'utilisateur existant
+            // Search for the user in the database
             Optional<User> userOptional = userRepository.findByEmail(email);
 
             User user;
             if (userOptional.isPresent()) {
-                // Utilisateur existant
+
                 user = userOptional.get();
-                // Met à jour le TenantContext avec le tenant existant
+                // Update TenantContext with the tenant ID
                 TenantContext.setTenantId(user.getTenantId());
-                // Met à jour les infos utilisateur
+                // Update User infos
                 user.setName(name);
                 user.setPicture(picture);
             } else {
-                // Nouvel utilisateur
+                // New user
                 String newTenantId = UUID.randomUUID().toString();
-                // Définit le nouveau tenant
+                // Define the new Tenant
                 TenantContext.setTenantId(newTenantId);
 
                 user = new User();
@@ -63,7 +63,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
             user = userRepository.save(user);
 
-            // Crée le principal avec le tenant ID
+            // CREATE PRINCIPAL WITH TENANTID
             return CustomUserPrincipal.create(user, oauth2User.getAttributes());
 
         } catch (Exception ex) {

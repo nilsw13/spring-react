@@ -47,12 +47,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 String email = tokenProvider.getUserEmailFromToken(jwt);
                 String tenantId = tokenProvider.getTenantIdFromToken(jwt);
 
-                // Définit le tenant pour la requête
+                // Define the tenantId for the request
                 TenantContext.setTenantId(tenantId);
 
                 User user = userRepository.findByEmail(email)
                         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-                // Créer les attributs
+                // Create the attributes
                 Map<String, Object> attributes = new HashMap<>();
                 attributes.put("sub", user.getGoogleId());
                 attributes.put("name", user.getName());
@@ -61,7 +61,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 attributes.put("email_verified", true);
                 attributes.put("tenant_id", user.getTenantId());
 
-                // Créer le CustomUserPrincipal avec les attributs
+                // Create the principal from the user and the OAuth2 attributes
                 CustomUserPrincipal userPrincipal = CustomUserPrincipal.create(user, attributes);
 
                 UsernamePasswordAuthenticationToken authentication =

@@ -30,7 +30,7 @@ public class CustomUserPrincipal implements OAuth2User, UserDetails {
     }
 
     /**
-     * Crée un CustomUserPrincipal à partir d'un User et des attributs OAuth2
+     * Create a CustomUserPrincipal from a User and OAuth2 attributes
      */
     public static CustomUserPrincipal create(User user, Map<String, Object> attributes) {
         List<GrantedAuthority> authorities = Collections.singletonList(
@@ -48,14 +48,14 @@ public class CustomUserPrincipal implements OAuth2User, UserDetails {
     }
 
     /**
-     * Définit les attributs OAuth2
+     * Define the OAuth2 attributes
      */
     public void setAttributes(Map<String, Object> attributes) {
         this.attributes = attributes;
     }
 
     /**
-     * Implémentation de OAuth2User
+     *  OAuth2User implementation
      */
     @Override
     public Map<String, Object> getAttributes() {
@@ -73,7 +73,7 @@ public class CustomUserPrincipal implements OAuth2User, UserDetails {
     }
 
     /**
-     * Implémentation de UserDetails
+     * UserDetails implementation
      */
     @Override
     public String getUsername() {

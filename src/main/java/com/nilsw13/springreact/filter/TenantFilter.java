@@ -37,18 +37,18 @@ public class TenantFilter extends OncePerRequestFilter {
             FilterChain filterChain) throws ServletException, IOException {
 
         try {
-            //extraction du tenantId depuis l'en-tête de la requête
+            //Extract tenantId from the request headers
 
             String tenantId = request.getHeader(TENANT_HEADER);
             log.debug("Received request for tenant: {}", tenantId);
 
             if (isPublicEndPoint(request.getRequestURI())) {
-                //si l'endpoint est public, on ne vérifie pas le tenantId
+                //if the endpoint is public, no need to check for tenantId
                 filterChain.doFilter(request, response);
                 return;
             }
 
-            //validation du tenantId
+            //tenantId is required for all other endpoints
 
            if(tenantId == null || tenantId.isEmpty()) {
                log.error("No tenant ID found in the request headers");
@@ -56,7 +56,7 @@ public class TenantFilter extends OncePerRequestFilter {
                 return;
            }
 
-           // Définition du tenant dans le contexte
+           // Define the tenantId in the Context
             TenantContext.setTenantId(tenantId);
            log.debug("Set tenant context for tenant: {}", tenantId);
             filterChain.doFilter(request, response);
@@ -70,9 +70,9 @@ public class TenantFilter extends OncePerRequestFilter {
 
 
     /**
-     * Vérifie si l'endpoint est public ou non.
-     * @param uri l'URI de la requête
-     * @return true si l'endpoint est public, false sinon
+     *Chekc if the endpoint is public
+     * @param uri L'url de la requête
+     * @return true if the endpoint is public
      */
 
 

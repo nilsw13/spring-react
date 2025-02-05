@@ -11,7 +11,7 @@ public class UserDTO {
     private String picture;
     private String tenantId;
 
-    // Constructeur pour créer un DTO à partir de l'entité User
+
     public static UserDTO fromUser(User user) {
         UserDTO dto = new UserDTO();
         dto.setId(user.getId());

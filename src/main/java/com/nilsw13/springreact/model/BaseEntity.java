@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 
 
 /**
- * classe de base pour tout les entités de l'app
- * fournis tout les champs communs pour les entités comme le tenant_id et les dates de création et de modification
+ * Base entity for all entities in the application that extends BaseEntity.
+ * Give all entities the tenant_id, created_at and updated_at fields.
 
  *  **/
 
@@ -31,7 +31,7 @@ public abstract class BaseEntity {
 
 
     /**
-     * L'id du tenant au quel appartien l'entité. NON NULLABLE pour garantir que chaque enregistrement appartient à un tenant
+     * Tenant id for multi-tenancy.
      * **/
 
     @Column(name = "tenant_id", nullable = false)
@@ -48,7 +48,7 @@ public abstract class BaseEntity {
 
 
     /**
-     * Méthode appelée avant la persistance pour définir le tenant_id.
+     * Call this method before persisting an entity to set the tenant_id and created_at fields.
      */
 
 
@@ -61,7 +61,7 @@ public abstract class BaseEntity {
 
 
     /**
-     * Méthode appelée avant la mise à jour pour actualiser updated_at.
+     * Method to update the updated_at field before updating an entity.
      */
 
     @PreUpdate

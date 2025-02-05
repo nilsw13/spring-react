@@ -22,7 +22,7 @@ public class JwtTokenProvider {
     private final int jwtExpirationInMs;
 
     public JwtTokenProvider(@Value("${jwt.expiration}") int jwtExpirationInMs) {
-        // Génération d'une clé sécurisée pour HS512
+        // Generating a secure key for HS512
         this.key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
         this.jwtExpirationInMs = jwtExpirationInMs;
         log.info("Initialized JWT Provider with secure HS512 key");

@@ -35,8 +35,8 @@ public class UserService {
         user.setName(name);
         user.setPicture(picture);
         user.setGoogleId(googleId);
-        user.setTenantId(generateUniqueTenantId()); // Génère un ID de tenant unique
-        user.setEmailVerified(true); // L'email est vérifié car il vient de Google
+        user.setTenantId(generateUniqueTenantId()); // Generate a unique tenant ID
+        user.setEmailVerified(true); // L'email verified beacause it comes from Google
 
         return userRepository.save(user);
     }

@@ -32,7 +32,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         CustomUserPrincipal userPrincipal = (CustomUserPrincipal) authentication.getPrincipal();
 
-        // Génère le token avec le tenant ID
+        // Generate token with tenantId
         String token = tokenProvider.generateToken(authentication);
 
         String targetUrl = UriComponentsBuilder.fromUriString(redirectUri)
