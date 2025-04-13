@@ -38,31 +38,31 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                // Désactive CSRF car nous utilisons des tokens JWT
+                // unable CSRF because of JWT
                 .csrf(csrf -> csrf.disable())
                 
-                // Configuration CORS
+                // CCORS configuration
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 
-                // Configuration des règles d'autorisation
+                // Authorize requests
                 .authorizeHttpRequests(auth -> auth
-                        // URLs publiques
+                        // Public endpoints
                         .requestMatchers(
                                 "/test",
                                 "/auth/**",
                                 "/oauth2/**",
                                 "/public/**"
                         ).permitAll()
-                        // Toutes les autres requêtes nécessitent une authentification
+                        // All other request must be authenticated
                         .anyRequest().authenticated()
                 )
 
-                // Configuration de la gestion de session
+                // Session management configuration
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
 
-                // Configuration OAuth2
+                // 0Auth2 configuration
                 .oauth2Login(oauth2 -> oauth2
                         .authorizationEndpoint(authEndpoint -> authEndpoint
                                 .baseUri("/oauth2/authorize")
@@ -77,7 +77,7 @@ public class SecurityConfig {
                         .failureHandler(oAuth2AuthenticationFailureHandler)
                 )
 
-                // Ajout du filtre JWT avant le filtre d'authentification standard
+                // Add jwt filter before standard authentication filter
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -88,7 +88,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList(
                 "http://localhost:5173",
-                "https://accounts.google.com"  // Ajoutez l'origine Google
+                "https://accounts.google.com"  // For 0auth use
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList(

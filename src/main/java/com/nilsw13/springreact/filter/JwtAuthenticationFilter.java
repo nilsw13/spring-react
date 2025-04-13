@@ -47,7 +47,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 String email = tokenProvider.getUserEmailFromToken(jwt);
                 String tenantId = tokenProvider.getTenantIdFromToken(jwt);
 
-                // Définit le tenant pour la requête
+                // Define the tenantId in the TenantContext
                 TenantContext.setTenantId(tenantId);
 
                 User user = userRepository.findByEmail(email)

@@ -6,7 +6,7 @@ target/
 
 
 
-# Supprimer '#' de la ligne ci dessous pour ignorer application.properties
+############### DELETE '#' FROM LINE UNDER OTHERWISE SECRETS ARE GONNA BE REVEALED !!!!!!!!!  ###############
 # src/main/resources/application.properties
 
 
